@@ -25,45 +25,35 @@ export function useDualProvider(parameters: DisputeParameters | null) {
     if (!parameters) return
 
     const initProvider = async () => {
-      try {
-        const chain = getChainById(parameters.arbitrableChainID || parameters.chainID)
+      const chain = getChainById(parameters.arbitrableChainID || parameters.chainID)
 
-        // Strategy 1: Use injected RPC URL (read-only, no wallet needed)
-        if (parameters.arbitrableJsonRpcUrl) {
+      if (parameters.arbitrableJsonRpcUrl) {
+        try {
           const publicClient = createPublicClient({
             transport: http(parameters.arbitrableJsonRpcUrl),
             chain,
           })
           setClient(publicClient)
           return
+        } catch (rpcError) {
+          console.warn('RPC URL failed, trying fallback...', rpcError)
         }
+      }
 
-        // Strategy 2: Use wallet provider
-        if (typeof window !== 'undefined' && window.ethereum) {
-          try {
-            // Request account access if needed (for wallet mode)
-            if (window.ethereum.enable) {
-              await window.ethereum.enable()
-            } else if (window.ethereum.request) {
-              await window.ethereum.request({ method: 'eth_requestAccounts' })
-            }
-          } catch (enableError) {
-            console.warn('User denied account access', enableError)
-          }
-
+      if (typeof window !== 'undefined' && window.ethereum) {
+        try {
           const publicClient = createPublicClient({
             transport: custom(window.ethereum),
             chain,
           })
-          
           setClient(publicClient)
           return
+        } catch (walletError) {
+          console.warn('Wallet provider failed', walletError)
         }
-
-        setError('No RPC URL or wallet provider available')
-      } catch (err) {
-        setError('Failed to initialize provider: ' + (err as Error).message)
       }
+
+      setError('No RPC URL or wallet provider available')
     }
 
     initProvider()
