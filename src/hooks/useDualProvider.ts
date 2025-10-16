@@ -28,29 +28,21 @@ export function useDualProvider(parameters: DisputeParameters | null) {
       const chain = getChainById(parameters.arbitrableChainID || parameters.chainID)
 
       if (parameters.arbitrableJsonRpcUrl) {
-        try {
           const publicClient = createPublicClient({
             transport: http(parameters.arbitrableJsonRpcUrl),
             chain,
           })
           setClient(publicClient)
-          return
-        } catch (rpcError) {
-          console.warn('RPC URL failed, trying fallback...', rpcError)
-        }
+          return;
       }
 
       if (typeof window !== 'undefined' && window.ethereum) {
-        try {
           const publicClient = createPublicClient({
             transport: custom(window.ethereum),
             chain,
           })
           setClient(publicClient)
-          return
-        } catch (walletError) {
-          console.warn('Wallet provider failed', walletError)
-        }
+          return;
       }
 
       setError('No RPC URL or wallet provider available')

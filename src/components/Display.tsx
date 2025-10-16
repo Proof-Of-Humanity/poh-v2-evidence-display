@@ -4,12 +4,13 @@ import { parseParameters } from '../utils/parseParams'
 import { useDualProvider } from '../hooks/useDualProvider'
 import { pohV2ABI } from '../contracts/pohV2'
 import { POH_V2_PROFILE_URL, type DisputeParameters } from '../utils/config'
-import { gnosis, mainnet, sepolia } from 'viem/chains'
+import { gnosis, gnosisChiado, mainnet, sepolia } from 'viem/chains'
 
 const chainNameById = new Map<number, string>([
   [mainnet.id, mainnet.name],
   [gnosis.id, gnosis.name],
-  [sepolia.id, sepolia.name]
+  [sepolia.id, sepolia.name],
+  [gnosisChiado.id, gnosisChiado.name]
 ])
 
 const getChainName = (chainId?: number) =>

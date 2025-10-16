@@ -42,10 +42,15 @@ export function parseParameters(search: string): DisputeParameters | null {
       .replace(/%7D/g, '}')
     
     const parsed = JSON.parse(decoded)
+    
     return {
       disputeID: parsed.disputeID,
       arbitrableContractAddress: parsed.arbitrableContractAddress,
       arbitratorContractAddress: parsed.arbitratorContractAddress,
+      arbitrableChainID: parsed.arbitrableChainID,
+      arbitratorChainID: parsed.arbitratorChainID,
+      arbitrableJsonRpcUrl: decodeURIComponent(parsed.arbitrableJsonRpcUrl),
+      arbitratorJsonRpcUrl: decodeURIComponent(parsed.arbitratorJsonRpcUrl),
       chainID: parsed.chainID,
     }
   } catch (e) {
