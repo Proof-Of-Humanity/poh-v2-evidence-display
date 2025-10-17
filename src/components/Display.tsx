@@ -6,15 +6,15 @@ import { pohV2ABI } from '../contracts/pohV2'
 import { POH_V2_PROFILE_URL, type DisputeParameters } from '../utils/config'
 import { gnosis, gnosisChiado, mainnet, sepolia } from 'viem/chains'
 
-const chainNameById = new Map<number, string>([
-  [mainnet.id, mainnet.name],
-  [gnosis.id, gnosis.name],
-  [sepolia.id, sepolia.name],
-  [gnosisChiado.id, gnosisChiado.name]
-])
+const chainNameById: Record<number, string> = {
+  [mainnet.id]: mainnet.name,
+  [gnosis.id]: gnosis.name,
+  [sepolia.id]: sepolia.name,
+  [gnosisChiado.id]: gnosisChiado.name
+}
 
 const getChainName = (chainId?: number) =>
-  chainId === undefined ? undefined : chainNameById.get(chainId) ?? `Chain ${chainId}`
+  chainId ? chainNameById[chainId] : undefined
 
 export function Display() {
   const [parameters, setParameters] = useState<DisputeParameters | null>(null)
@@ -67,8 +67,13 @@ export function Display() {
   if (!humanityId) {
     return null
   }
+  
+  const chainName = getChainName(Number(parameters?.arbitrableChainID) ?? Number(parameters?.chainID));
 
-  const chainName = getChainName(parameters?.arbitrableChainID ?? parameters?.chainID)
+  if(!chainName){
+    setError('Invalid chain ID')
+    return null
+  }
 
   return (
     <a
