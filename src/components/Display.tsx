@@ -76,19 +76,26 @@ export function Display() {
   }
 
   return (
-    <a
-      href={`${POH_V2_PROFILE_URL}/${humanityId}/${chainName}/${requestId}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      title={chainName ? `View submission on Proof of Humanity (${chainName})` : undefined}
-      style={{
-        color: 'rgba(0, 0, 0, 0.65)',
-        fontFamily: 'Roboto, sans-serif',
-        fontSize: '16px',
-        textDecoration: 'none'
-      }}
-    >
-      View Submission on Proof of Humanity
-    </a>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+      <img 
+        src="/logos/logo-poh.png"
+        alt="Proof of Humanity"
+        style={{ width: '200px', height: 'auto' }}
+      />
+      <a
+        href={`${POH_V2_PROFILE_URL}/${humanityId}/${chainName}/${requestId}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={chainName ? `View submission on Proof of Humanity (${chainName})` : undefined}
+        style={{
+          color: 'rgba(0, 0, 0, 0.65)',
+          fontFamily: 'Roboto, sans-serif',
+          fontSize: '16px',
+          textDecoration: 'none'
+        }}
+      >
+        View Submission on Proof of Humanity
+      </a>
+    </div>
   )
 }
