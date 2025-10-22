@@ -14,7 +14,7 @@ const getChainById = (chainId?: number) => {
     case 11155111:
       return sepolia
     default:
-      return mainnet
+      throw new Error(`Unsupported chain ID: ${chainId}`)
   }
 }
 
