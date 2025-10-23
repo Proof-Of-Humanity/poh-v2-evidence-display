@@ -88,15 +88,21 @@ export function Display() {
         rel="noopener noreferrer"
         title={chainName ? `View submission on Proof of Humanity (${chainName})` : undefined}
         style={{
-          color: 'rgba(0, 0, 0, 0.65)',
+          color: '#1e88e5',
           fontFamily: 'Roboto, sans-serif',
           fontSize: '16px',
-          textDecoration: 'none',
+          textDecoration: 'underline',
           cursor: 'pointer',
-          transition: 'color 0.3s ease'
+          transition: 'color 0.3s ease, opacity 0.3s ease'
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0, 0, 0, 1)')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0, 0, 0, 0.65)')}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = '#1565c0'
+          e.currentTarget.style.opacity = '0.75'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = '#1e88e5'
+          e.currentTarget.style.opacity = '1'
+        }}
       >
         View Submission on Proof of Humanity
       </a>
