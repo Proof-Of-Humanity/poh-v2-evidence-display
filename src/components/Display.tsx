@@ -91,8 +91,12 @@ export function Display() {
           color: 'rgba(0, 0, 0, 0.65)',
           fontFamily: 'Roboto, sans-serif',
           fontSize: '16px',
-          textDecoration: 'none'
+          textDecoration: 'none',
+          cursor: 'pointer',
+          transition: 'color 0.3s ease'
         }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0, 0, 0, 1)')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0, 0, 0, 0.65)')}
       >
         View Submission on Proof of Humanity
       </a>
